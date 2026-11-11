@@ -1,0 +1,47 @@
+# Secrets and local config
+.env
+.env.*
+*.pem
+*.key
+**/config.js
+!**/config.example.js
+supabase/.temp/
+.dev.vars
+
+# Content and data that must never be committed
+data/
+content/
+content-csv*/
+audio/
+*.mp3
+*.wav
+*.mp4
+*.csv
+*.json.bak
+backups/
+exports/
+000_backup.sql
+
+# Prompts, rubrics, money
+prompts/
+rubrics/
+functions/grade-*
+functions/speaking-*
+sql/*payment*
+sql/*token*
+
+# Third-party exam materials
+*.pdf
+ielts*/
+cambridge*/
+kaggle*/
+
+# Tooling
+node_modules/
+.DS_Store
+.wrangler/
+test-results/
+playwright-report/
+
+# Deployment-specific grep patterns for check-secrets.sh
+scripts/check-secrets.local
