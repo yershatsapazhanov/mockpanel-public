@@ -6,7 +6,10 @@
 2. **Every stored field must feed a concrete use:** selection of the next item, the student's own progress, item quality control, or cost control. A field with no such use is not collected.
 3. **Version everything a score depends on** (rubric, prompt, model, item), so a score can be interpreted or recomputed later.
 4. **Separate personal from non-personal data**, so hosting or retention rules can apply to one group only.
-5. **Clients never write scores.** Results are written through server functions.
+5. **Band scores come from the server.** Writing and Speaking feedback is written
+   by an Edge Function under a service role and is read-only to the learner.
+   Reading and Listening practice attempts are inserted by the client into its
+   own append-only row; see point 2 of the README for why, and what replaces it.
 
 ## Tables (summary)
 
