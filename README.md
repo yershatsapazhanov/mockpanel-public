@@ -29,7 +29,15 @@ Details: [docs/architecture.md](docs/architecture.md) and [docs/data-model.md](d
 ## Design decisions worth reading
 
 1. **Store events, derive state.** Every answer is an append-only row. Level, streaks and weak areas are computed from events, so formulas can change later and be re-run on history.
-2. **Scores are never written by the client.** The browser cannot change its own result.
+2. **Band scores are written only by the server.** Writing and Speaking bands come
+   back from an Edge Function running under a service role; the browser can read
+   its own feedback row but cannot insert or update one. Reading and Listening
+   practice attempts are the deliberate exception: the browser checks them against
+   a key it already holds and appends the result to its own row. Those tables are
+   append-only and row-scoped, so a learner can inflate their own practice history
+   and nobody else's. This is practice data, not a certificate, and the trade-off
+   is written down rather than papered over. Moving that check server-side is the
+   next change on this list.
 3. **Everything a score depends on is versioned** (rubric, prompt, model, item), so an old score stays interpretable.
 4. **Personal and non-personal data live in separate tables**, so hosting rules for personal data can be applied to one group only.
 5. **Deterministic checking where possible.** Reading and Listening answers are checked by code, not by a model. AI is used only where judgement is needed.
